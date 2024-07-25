@@ -42,7 +42,7 @@ export class AuthService {
     const pwMatch = await argon2.verify(user.hash, dto.password);
     if (!pwMatch) throw new ForbiddenException('Invalid credentials');
     delete user.hash;
-    const payload = { sub: user.id, email: user.email };
+    const payload = { id: user.id, email: user.email };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
